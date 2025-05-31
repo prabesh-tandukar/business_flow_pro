@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             LeadStatusSeeder::class,
             DealStageSeeder::class,
             DealTypeSeeder::class,
+            ServiceCategorySeeder::class,
+            ProductSeeder::class,
 
         ]);
     }
