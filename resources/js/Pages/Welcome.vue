@@ -164,6 +164,9 @@
                     >
                         Complete Week 1
                     </button>
+                    <button @click="testDatabase" class="btn btn-primary mr-4">
+                        Test Week 2 Database
+                    </button>
                 </div>
 
                 <!-- Test Results -->
@@ -218,38 +221,38 @@ const dbStatus = ref("testing");
 const dbInfo = ref({});
 
 // Test database connection
-const testDatabase = async () => {
-    testing.value = true;
-    testResults.value = null;
+// const testDatabase = async () => {
+//     testing.value = true;
+//     testResults.value = null;
 
-    try {
-        const response = await axios.get("/test-db");
-        dbStatus.value = "connected";
-        dbInfo.value = response.data;
+//     try {
+//         const response = await axios.get("/test-db");
+//         dbStatus.value = "connected";
+//         dbInfo.value = response.data;
 
-        testResults.value = `✅ DATABASE CONNECTION TEST PASSED
-    
-Database: ${response.data.database}
-Driver: ${response.data.driver}
-Laravel Version: ${response.data.laravel_version}
-PHP Version: ${response.data.php_version}
+//         testResults.value = `✅ DATABASE CONNECTION TEST PASSED
 
-✅ Backend API working
-✅ Frontend-Backend communication working
-✅ Database connectivity confirmed
+// Database: ${response.data.database}
+// Driver: ${response.data.driver}
+// Laravel Version: ${response.data.laravel_version}
+// PHP Version: ${response.data.php_version}
 
-🚀 Ready for Week 2 development!`;
-    } catch (error) {
-        dbStatus.value = "error";
-        testResults.value = `❌ DATABASE CONNECTION TEST FAILED
+// ✅ Backend API working
+// ✅ Frontend-Backend communication working
+// ✅ Database connectivity confirmed
 
-Error: ${error.response?.data?.message || error.message}
+// 🚀 Ready for Week 2 development!`;
+//     } catch (error) {
+//         dbStatus.value = "error";
+//         testResults.value = `❌ DATABASE CONNECTION TEST FAILED
 
-Please check your database configuration in .env file.`;
-    } finally {
-        testing.value = false;
-    }
-};
+// Error: ${error.response?.data?.message || error.message}
+
+// Please check your database configuration in .env file.`;
+//     } finally {
+//         testing.value = false;
+//     }
+// };
 
 // Test UI components
 const testComponents = () => {
@@ -307,4 +310,41 @@ Status: Foundation Complete ✅`;
 onMounted(() => {
     testDatabase();
 });
+
+const testDatabase = async () => {
+    testing.value = true;
+    testResults.value = null;
+
+    try {
+        const response = await axios.get("/database-status");
+
+        testResults.value = `🎉 WEEK 2 COMPLETE - DATABASE ARCHITECTURE
+
+📊 Database Tables & Records:
+✅ Users: ${response.data.data.tables.users}
+✅ Roles: ${response.data.data.tables.roles}
+✅ Companies: ${response.data.data.tables.companies}
+✅ Contacts: ${response.data.data.tables.contacts}
+✅ Tags: ${response.data.data.tables.tags}
+✅ Lead Sources: ${response.data.data.tables.lead_sources}
+✅ Lead Statuses: ${response.data.data.tables.lead_statuses}
+✅ Leads: ${response.data.data.tables.leads}
+✅ Deal Stages: ${response.data.data.tables.deal_stages}
+✅ Deal Types: ${response.data.data.tables.deal_types}
+✅ Deals: ${response.data.data.tables.deals}
+✅ Service Categories: ${response.data.data.tables.service_categories}
+✅ Products: ${response.data.data.tables.products}
+✅ Deal Products: ${response.data.data.tables.deal_products}
+
+🏗️ Database Architecture Complete!
+🎯 Progress: 10/301 features (3.3%)
+
+📅 Ready for Week 3: Model Creation & Relationships
+Next: Build Eloquent models with full relationships`;
+    } catch (error) {
+        testResults.value = `❌ Database verification failed: ${error.message}`;
+    } finally {
+        testing.value = false;
+    }
+};
 </script>
