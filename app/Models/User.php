@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\Traits\HasRoles;
+
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, SoftDeletes, HasRoles;
 
     protected $fillable = [
         'email',
@@ -38,15 +42,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Custom role relationship using our user_roles table
-    public function roles()
+    // Simple role relationship for Week 2 testing
+    public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(
-            \App\Models\Role::class, 
-            'user_roles', 
-            'user_id', 
-            'role_id'
-        );
+        return $this->belongsToMany(Role::class, 'user_roles');
     }
 
     public function hasRole($roleName)
