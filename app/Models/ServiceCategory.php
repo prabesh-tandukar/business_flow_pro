@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class DealType extends Model
+class ServiceCategory extends Model
 {
     use HasFactory;
 
@@ -14,33 +14,26 @@ class DealType extends Model
         'name',
         'description',
         'color',
+        'icon',
         'is_active',
-        'is_default',
         'sort_order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'is_default' => 'boolean',
         'sort_order' => 'integer',
     ];
 
-    /**Deals of this type */
-    public function deals(): HasMany
+    /**Products in this category */
+    public function products(): HasMany
     {
-        return $this->hasMany(Deal::class, 'type_id');
+        return $this->hasMany(Product::class, 'category_id');
     }
 
-    /**Scope for active types */
+    /**scope for active categories */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    /**Scope for default type */
-    public function scopeDefault($query)
-    {
-        return $query->where('is_default', true);
     }
 
     /**Scope ordered by sort order */
