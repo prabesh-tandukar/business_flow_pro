@@ -75,7 +75,7 @@ class Deal extends Model
     /**Deal stage */
     public function stage(): BelongsTo
     {
-        return $this->belongsTo(DealStage::class, 'type_id');
+        return $this->belongsTo(DealStage::class, 'stage_id');
     }
 
     /**Deal type */

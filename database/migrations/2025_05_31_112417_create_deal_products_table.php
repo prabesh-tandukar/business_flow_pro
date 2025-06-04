@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('deal_products', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            
             $table->uuid('deal_id');
             $table->uuid('product_id');
             $table->decimal('quantity', 10, 2)->default(1);
@@ -24,6 +24,9 @@ return new class extends Migration
             $table->foreign('deal_id')->references('id')->on('deals')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products');
             
+// Add composite primary key
+            $table->primary(['deal_id', 'product_id']);
+
             // Indexes
             $table->index(['deal_id'], 'idx_deal_products_deal');
             $table->index(['product_id'], 'idx_deal_products_product');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,7 +17,7 @@ class DealStage extends Model
         'probability',
         'color',
         'is_active',
-        'is_default',
+        // 'is_default',
         'is_won',
         'is_lost',
         'sort_order',
@@ -25,7 +26,7 @@ class DealStage extends Model
     protected $casts = [
         'probability' => 'decimal:2',
         'is_active' => 'boolean',
-        'is_default' => 'boolean',
+        // 'is_default' => 'boolean',
         'is_won' => 'boolean',
         'is_lost' => 'boolean',
         'sort_order' => 'integer',

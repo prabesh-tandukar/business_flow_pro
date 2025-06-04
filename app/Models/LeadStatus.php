@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,7 @@ class LeadStatus extends Model
         'description',
         'color',
         'is_active',
-        'is_default',
+        // 'is_default',
         'is_converted',
         'is_lost',
         'sort_order',
@@ -23,7 +24,7 @@ class LeadStatus extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
-        'is_default' => 'boolean',
+        // 'is_default' => 'boolean',
         'is_converted' => 'boolean',
         'is_lost' => 'boolean',
         'sort_order' => 'integer',

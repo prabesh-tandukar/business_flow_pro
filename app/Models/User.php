@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\RElations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Traits\HasRoles;
+
 
 
 
@@ -41,6 +43,32 @@ class User extends Authenticatable
         'is_active' => 'boolean',
         'password' => 'hashed',
     ];
+
+    /**companies owned by this user */
+    public function companies():HasMany
+    {
+        return $this->hasMany(Company::class, 'owner_id');
+    }
+
+    /**Contacts owned by this user */
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contact::class, 'owner_id');
+    }
+
+    /**Lead owned by this user */
+    public function leads(): HasMany
+    {
+        return $this->hasMany(Lead::class, 'owner_id');
+
+    }
+    /**
+     * Deals owned by this user
+     */
+    public function deals(): HasMany
+    {
+        return $this->hasMany(Deal::class, 'owner_id');
+    }
 
     // Simple role relationship for Week 2 testing
     public function roles(): BelongsToMany

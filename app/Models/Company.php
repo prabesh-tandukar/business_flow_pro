@@ -52,6 +52,18 @@ class Company extends Model
 
     }
 
+    /**Deals associated with this company */
+    public function deals(): HasMany
+    {
+        return $this->hasMany(Deal::class);
+    }
+
+    /**Scope for active companies */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)->whereNull('deleted_at');
+    }
+
     /**Get full address as a single string */
     public function getFullAddressAttribute(): string
     {
