@@ -3,74 +3,61 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use App\Models\ServiceCategory;
 
 class ServiceCategorySeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        DB::table('service_categories')->insert([
+        $categories = [
             [
-                'id' => Str::uuid(),
-                'name' => 'Consulting',
-                'description' => 'Business and technical consulting services',
-                'parent_id' => null,
-                'icon' => 'briefcase',
-                'color' => '#3B82F6',
-                'is_active' => true,
-                'display_order' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'id' => Str::uuid(),
-                'name' => 'Development',
-                'description' => 'Software and web development services',
-                'parent_id' => null,
+                'name' => 'Web Development',
+                'description' => 'Website design and development services',
                 'icon' => 'code',
-                'color' => '#10B981',
-                'is_active' => true,
-                'display_order' => 2,
-                'created_at' => now(),
-                'updated_at' => now()
+                'color' => '#3B82F6',
+                'display_order' => 1,
             ],
             [
-                'id' => Str::uuid(),
-                'name' => 'Design',
-                'description' => 'Graphic design and creative services',
-                'parent_id' => null,
-                'icon' => 'palette',
-                'color' => '#8B5CF6',
-                'is_active' => true,
-                'display_order' => 3,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'id' => Str::uuid(),
-                'name' => 'Marketing',
-                'description' => 'Digital marketing and advertising services',
-                'parent_id' => null,
+                'name' => 'Digital Marketing',
+                'description' => 'SEO, PPC, and social media marketing',
                 'icon' => 'megaphone',
-                'color' => '#F59E0B',
-                'is_active' => true,
-                'display_order' => 4,
-                'created_at' => now(),
-                'updated_at' => now()
+                'color' => '#10B981',
+                'display_order' => 2,
             ],
             [
-                'id' => Str::uuid(),
-                'name' => 'Support',
-                'description' => 'Technical support and maintenance services',
-                'parent_id' => null,
-                'icon' => 'support',
-                'color' => '#EF4444',
-                'is_active' => true,
-                'display_order' => 5,
-                'created_at' => now(),
-                'updated_at' => now()
+                'name' => 'Business Consulting',
+                'description' => 'Strategic business consulting services',
+                'icon' => 'briefcase',
+                'color' => '#8B5CF6',
+                'display_order' => 3,
             ],
-        ]);
+            [
+                'name' => 'Graphic Design',
+                'description' => 'Logo, branding, and graphic design',
+                'icon' => 'palette',
+                'color' => '#F59E0B',
+                'display_order' => 4,
+            ],
+            [
+                'name' => 'IT Support',
+                'description' => 'Technical support and maintenance',
+                'icon' => 'wrench',
+                'color' => '#EF4444',
+                'display_order' => 5,
+            ],
+            [
+                'name' => 'Content Creation',
+                'description' => 'Content writing and copywriting services',
+                'icon' => 'edit',
+                'color' => '#06B6D4',
+                'display_order' => 6,
+            ],
+        ];
+
+        foreach ($categories as $category) {
+            ServiceCategory::create($category);
+        }
+
+        $this->command->info('✅ Service categories seeded successfully');
     }
 }
