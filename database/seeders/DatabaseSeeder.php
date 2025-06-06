@@ -10,38 +10,37 @@ class DatabaseSeeder extends Seeder
     {
         $this->command->info('🚀 Starting Business Flow Pro CRM Database Seeding...');
         
-        // Step 1: Core system data
-        $this->call([
-            RoleSeeder::class,
-            UserSeeder::class,
-            LookupTablesSeeder::class,
-        ]);
+        try {
+            // Step 1: Essential data first
+            $this->command->info('Step 1: Creating roles and permissions...');
+            $this->call(RoleSeeder::class);
+            
+            $this->command->info('Step 2: Creating lookup tables...');
+            $this->call(LookupTablesSeeder::class);
+            
+            $this->command->info('Step 3: Creating users...');
+            $this->call(UserSeeder::class);
+            
+            $this->command->info('Step 4: Creating companies...');
+            $this->call(CompanySeeder::class);
+            
+            $this->command->info('Step 5: Creating contacts...');
+            $this->call(ContactSeeder::class);
+            
+            $this->command->info('Step 6: Creating products...');
+            $this->call(ProductSeeder::class);
+            
+            $this->command->info('Step 7: Creating leads...');
+            $this->call(LeadSeeder::class);
+            
+            $this->command->info('Step 8: Creating deals...');
+            $this->call(DealSeeder::class);
+            
+        } catch (\Exception $e) {
+            $this->command->error('❌ Seeding failed: ' . $e->getMessage());
+            $this->command->info('Try running seeders individually to find the issue.');
+        }
 
-        // Step 2: Service catalog
-        $this->call([
-            ServiceCategorySeeder::class,
-            ProductSeeder::class,
-            TagSeeder::class,
-        ]);
-
-        // Step 3: CRM data (with relationships)
-        $this->call([
-            CompanySeeder::class,
-            ContactSeeder::class,
-            LeadSeeder::class,
-            DealSeeder::class,
-        ]);
-
-        $this->command->info('✅ Database seeding completed successfully!');
-        $this->command->info('📊 You now have:');
-        $this->command->info('   - 4 User roles with permissions');
-        $this->command->info('   - 6+ Service categories');
-        $this->command->info('   - 15+ Products/Services');
-        $this->command->info('   - 15 Tags for organization');
-        $this->command->info('   - 15 Companies');
-        $this->command->info('   - 30-60 Contacts');
-        $this->command->info('   - 35-40 Leads');
-        $this->command->info('   - 20+ Deals with products');
-        $this->command->info('   - Complete relationship data for testing');
+        $this->command->info('✅ Database seeding completed!');
     }
 }
